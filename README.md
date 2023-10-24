@@ -1,6 +1,8 @@
 
 # COFFEE PROJECT 
 
+Assumes that you have `npm` / `node` installed.
+
 
 ```
 npm install express axios
