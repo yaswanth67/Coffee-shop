@@ -3,7 +3,7 @@
 2. Abhishek Potdar - apotdar
 3. Yaswanth Baddi - ybaddi
    
-[WikiLink](https://github.ncsu.edu/tskulkar/coffee-project/wiki/Problem-Description)
+[WikiLink](https://github.ncsu.edu/TAYDevops/Coffee-shop/wiki/Problem-Description)
 # COFFEE PROJECT 
 
 Assumes that you have `npm` / `node` installed.
