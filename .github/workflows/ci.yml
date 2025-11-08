@@ -5,20 +5,20 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Configure Linter
         run: echo "Configuring Linter..."
 
   unit-tests:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: lint
     steps:
       - name: Set up Testing Environment
         run: echo "Setting up Testing Environment..."
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: unit-tests
     steps:
       - name: Build Project
