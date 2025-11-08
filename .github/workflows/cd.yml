@@ -1,0 +1,38 @@
+name: Dempployment CD
+
+on:
+  push:
+    branches:
+      - "release/*"
+
+jobs:
+  call_ci:
+    uses: ./.github/workflows/ci.yml
+
+  staging-deploy:
+    runs-on: self-hosted
+    needs: call_ci
+    steps:
+      - name: Deploy to Staging
+        run: echo "Deploying to Staging Environment..."
+
+  integration-tests-staging:
+    runs-on: self-hosted
+    needs: staging-deploy
+    steps:
+      - name: Run Integration Tests on Staging
+        run: echo "Running Integration Tests on Staging..."
+
+  production-deploy:
+    runs-on: self-hosted
+    needs: integration-tests-staging
+    steps:
+      - name: Deploy to Production
+        run: echo "Deploying to Production Environment..."
+
+  integration-tests-production:
+    runs-on: self-hosted
+    needs: production-deploy
+    steps:
+      - name: Run Integration Tests on Production
+        run: echo "Running Integration Tests on Production..."

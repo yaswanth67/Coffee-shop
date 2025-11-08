@@ -1,0 +1,25 @@
+name: Pull Request CI
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: self-hosted
+    steps:
+      - name: Configure Linter
+        run: echo "Configuring Linter..."
+
+  unit-tests:
+    runs-on: self-hosted
+    needs: lint
+    steps:
+      - name: Set up Testing Environment
+        run: echo "Setting up Testing Environment..."
+
+  build:
+    runs-on: self-hosted
+    needs: unit-tests
+    steps:
+      - name: Build Project
+        run: echo "Building Project..."
