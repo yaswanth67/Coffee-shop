@@ -6,7 +6,6 @@
   "scripts": {
     "build": "webpack",
     "start": "node dist/bundle.js",
-    "lint": "eslint . --ext .js",
     "test": "mocha --exit ./test/*.test.js"
   },
   "dependencies": {
@@ -27,7 +26,6 @@
     "url": "git@github.ncsu.edu:CSC-519/project.git"
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
     "chai": "^4.3.10",
     "mocha": "^10.2.0",
     "supertest": "^6.3.3",
