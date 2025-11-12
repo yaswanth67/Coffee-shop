@@ -10,10 +10,10 @@ Git commit: https://github.ncsu.edu/TAYDevops/Coffee-shop/commit/30ec716e85d556e
 
 Git commit: https://github.ncsu.edu/TAYDevops/Coffee-shop/commit/bece9cddf71d9ec69cf56e78164a8ffd3e151910
 ### Yaswanth
-* Added branch protection rules to the main branch.
-* Setup up self hosted github runner for the pipelines.
+* Added branch protection rules to the main branch and setup self hosted github runner for the pipelines.
+* Added containerization of the application using docker.
 
-Git commit: Worked on configuration and setup tasks hench no commit required.
+Git commit: https://github.ncsu.edu/TAYDevops/Coffee-shop/commit/27c0dbe7c5ba3ba3592602a8d98679cde876318f.
 ## Next Steps
 ### Tanuj
 * Setup Loki for logs persistance - Effort Estimation:  2 days.
@@ -24,7 +24,7 @@ Git commit: Worked on configuration and setup tasks hench no commit required.
 * Add REST endpoints to save and retrieve configuration for a server - Effort Estimation: 3 days.
 
 ### Yaswanth
-* Setup Ansible and docker to deploy the app on staging - Effort Estimation: 3 days.
+* Setup Ansible to deploy the app on staging - Effort Estimation: 3 days.
 * Integrate the Ansible playbook trigger from the pipeline - Effort Estimation: 2 days.
 
 ## Retrospective
