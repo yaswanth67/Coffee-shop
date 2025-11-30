@@ -9,7 +9,6 @@ on:
 jobs:
   staging-deploy:
     runs-on: self-hosted
-    needs: call_ci
     steps:
       - name: Deploy to Staging
         run: echo "Deploying to Staging Environment..."
