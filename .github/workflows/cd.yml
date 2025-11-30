@@ -7,9 +7,6 @@ on:
       - "main"
 
 jobs:
-  call_ci:
-    uses: ./.github/workflows/ci.yml
-
   staging-deploy:
     runs-on: self-hosted
     needs: call_ci
