@@ -1,9 +1,10 @@
 name: Dempployment CD
 
 on:
-  push:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     branches:
-      - "release/*"
+      - "main"
 
 jobs:
   call_ci:
