@@ -7,8 +7,11 @@
     "build": "webpack",
     "start": "node dist/bundle.js",
     "lint": "eslint . --ext .js",
-    "test": "mocha --exit ./test/*.test.js"
+    "unit-test": "mocha --exit ./test/unit_test/app.test.js",
+    "smoke-prod": "mocha --exit ./test/smoke_prod/smoke.prod.test.js",
+    "smoke-staging": "mocha --exit ./test/smoke_staging/smoke.staging.test.js"
   },
+  
   "dependencies": {
     "axios": "^1.5.1",
     "express": "^4.17.1",

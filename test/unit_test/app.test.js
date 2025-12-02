@@ -2,7 +2,7 @@
 
 const request = require("supertest");
 const chai = require("chai");
-const app = require("../app"); // path to your app.js file
+const app = require("../../app"); // path to your app.js file
 
 const expect = chai.expect;
 

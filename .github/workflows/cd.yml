@@ -44,20 +44,49 @@ jobs:
   integration-tests-staging:
     runs-on: self-hosted
     needs: staging-deploy
+    env:
+      STAGING_BASE_URL: "http://${{ secrets.STAGING_IP }}/coffee-app"
     steps:
-      - name: Staging Integration Tests
-        run: echo "Running Integration Tests on Staging..."
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Smoke-staging tests
+        run: npm run smoke-staging
 
   production-deploy:
-    runs-on: self-hosted
     needs: integration-tests-staging
-    steps:
-      - name: Deploy to Production
-        run: echo "Deploying to Production..."
+    uses: TAYDevops/infra-deployment/.github/workflows/production_deployment_coffee.yml@main
+    with:
+      build_id: ${{ github.run_id }}
+    secrets: inherit
 
   integration-tests-production:
     runs-on: self-hosted
     needs: production-deploy
+    env:
+      PROD_BASE_URL: "http://${{ secrets.PRODUCTION_IP }}/coffee-app"
     steps:
-      - name: Run Integration Tests on Production
-        run: echo "Running Integration Tests on Production..."
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Smoke-prod tests
+        run: npm run smoke-prod     
+
