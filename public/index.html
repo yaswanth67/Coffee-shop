@@ -5,9 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Order</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        
+        #promo-banner {
+            display: none; 
+            background-color: #d4edda; 
+            color: #155724;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h1>Available Coffees</h1>
+    
+    <div id="promo-banner">
+        🎉 SPECIAL OFFER: 50% OFF ALL ORDERS TODAY! 🎉
+    </div>
+
     <ul id="coffeeList"></ul>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>

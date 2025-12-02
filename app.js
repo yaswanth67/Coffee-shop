@@ -1,6 +1,6 @@
-// app.js
-
+// Coffee-shop/app.js
 const express = require('express');
+const axios = require('axios');
 const { coffees, orders } = require('./data');
 
 const app = express();
@@ -8,40 +8,77 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.static('public')); 
-module.exports = app
 
-// Endpoint to fetch available coffees
+module.exports = app; 
+
+// Helper function to check flags
+async function checkFlags(shopId) {
+    try {
+        const featureUrl = process.env.FEATURE_API_URL || 'http://localhost:8080';
+        const response = await axios.get(`${featureUrl}/features/${shopId}`);
+        return response.data['show-promo-banner'] === true;
+    } catch (e) {
+        console.error("Feature check failed:", e.message);
+        return false;
+    }
+}
+
 app.get('/coffees', (req, res) => {
   res.json(coffees);
 });
 
-// Endpoint to place an order
-app.post('/order', (req, res) => {
-  const { coffeeId, quantity } = req.body;
+app.get('/shop-config', async (req, res) => {
+  const shopId = req.query.shop_id;
+  if (!shopId) {
+    return res.status(400).json({ error: 'Missing shop_id' });
+  }
+
+  try {
+    const featureUrl = process.env.FEATURE_API_URL || 'http://localhost:8080';
+    const response = await axios.get(`${featureUrl}/features/${shopId}`);
+    const showBanner = response.data['show-promo-banner'] === true;
+    res.json({ showBanner });
+  } catch (error) {
+    res.json({ showBanner: false });
+  }
+});
+
+app.post('/order', async (req, res) => {
+  const { coffeeId, quantity, shopId } = req.body;
 
   const coffee = coffees.find(c => c.id === coffeeId);
-
   if (!coffee) {
     return res.status(400).json({ error: 'Invalid coffee ID' });
+  }
+
+  // Default to full price
+  let finalPrice = coffee.price;
+
+  // ONLY check for discount if a shopId was actually provided
+  if (shopId) {
+      const isPromoActive = await checkFlags(shopId);
+      if (isPromoActive) {
+          finalPrice = coffee.price * 0.5;
+      }
   }
 
   const order = {
     orderId: orders.length + 1,
     coffeeName: coffee.name,
     quantity,
-    total: coffee.price * quantity
+    total: finalPrice * quantity
   };
 
   orders.push(order);
-
   res.status(201).json(order);
 });
 
-// Endpoint to fetch all orders
 app.get('/orders', (req, res) => {
   res.json(orders);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server started on http://localhost:${PORT}`);
+  });
+}
