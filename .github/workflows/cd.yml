@@ -1,10 +1,9 @@
-name: Dempployment CD
+name: Deployment CD
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  push:
     branches:
-      - "main"
+      - "release/*"
 
 jobs:
   build:
@@ -32,18 +31,21 @@ jobs:
           path: |
             ./dist
             ./public
-            
+            ./package-lock.json
+            ./package.json
+
   staging-deploy:
-    runs-on: self-hosted
-    steps:
-      - name: Deploy to Staging
-        run: echo "Deploying to Staging Environment..."
+    needs: build
+    uses: TAYDevops/infra-deployment/.github/workflows/staging_deployment_coffee.yml@main
+    with:
+      build_id: ${{ github.run_id }}
+    secrets: inherit
 
   integration-tests-staging:
     runs-on: self-hosted
     needs: staging-deploy
     steps:
-      - name: Run Integration Tests on Staging
+      - name: Staging Integration Tests
         run: echo "Running Integration Tests on Staging..."
 
   production-deploy:
@@ -51,7 +53,7 @@ jobs:
     needs: integration-tests-staging
     steps:
       - name: Deploy to Production
-        run: echo "Deploying to Production Environment..."
+        run: echo "Deploying to Production..."
 
   integration-tests-production:
     runs-on: self-hosted
