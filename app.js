@@ -1,12 +1,16 @@
 // Coffee-shop/app.js
 const express = require("express");
 const axios = require("axios");
-const helmet = require('helmet');
+const helmet = require("helmet");
 
 const { coffees, orders } = require("./data");
 
 const app = express();
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 const PORT = 3000;
 
 app.use(express.json());
