@@ -92,7 +92,7 @@ jobs:
 
   staging-deploy:
     needs: build
-    uses: yaswanth67/infra-deployment/.github/workflows/staging_deployment_coffee.yml@main
+    uses: infra-deployment/.github/workflows/staging_deployment_coffee.yml@main
     with:
       build_id: ${{ github.run_id }}
     secrets: inherit
