@@ -94,7 +94,7 @@ jobs:
 
   staging-deploy:
     needs: build
-    uses: TAYDevops/infra-deployment/.github/workflows/staging_deployment_coffee.yml@main
+    uses: yaswanth67/infra-deployment/.github/workflows/staging_deployment_coffee.yml@main
     with:
       build_id: ${{ github.run_id }}
     secrets: inherit
@@ -122,7 +122,7 @@ jobs:
 
   production-deploy:
     needs: integration-tests-staging
-    uses: TAYDevops/infra-deployment/.github/workflows/production_deployment_coffee.yml@main
+    uses: yaswanth67/infra-deployment/.github/workflows/production_deployment_coffee.yml@main
     with:
       build_id: ${{ github.run_id }}
     secrets: inherit
